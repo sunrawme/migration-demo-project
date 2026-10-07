@@ -43,6 +43,13 @@ jobs:
       - name: Run tests
         run: npm test
 
+      - name: Debug OIDC Claims
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: github/actions-oidc-debugger@main
+        with:
+          audience: sts.amazonaws.com
+
+
       # AWS access only on push to main
       - name: Configure AWS credentials
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
